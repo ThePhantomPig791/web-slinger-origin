@@ -1,4 +1,5 @@
-## **Web Slinger** Impact: :yellow_circle::yellow_circle:
+## **Web Slinger** 
+Impact: :yellow_circle::yellow_circle:
 
 :green_circle:__Agility__
 > The more you move, the faster you'll go. You also take less fall damage.
