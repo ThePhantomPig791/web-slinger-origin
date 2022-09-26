@@ -1,6 +1,9 @@
 ## **Web Slinger** 
 Impact: :yellow_circle::yellow_circle:
 
+**The required resource pack can be found above as a zip!**
+*Requires Origins and ExtraOrigins*
+
 :green_circle:__Agility__
 > The more you move, the faster you'll go. You also take less fall damage.
 > *(After 3 seconds of moving, you will get speed and jump boost, and the level of each will go up with each second you move. Caps at level 10.)*
