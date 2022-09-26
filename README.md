@@ -9,8 +9,8 @@ Impact: :yellow_circle::yellow_circle:
 :red_circle:__Waterlogged__
 > Getting your web shooters wet will temporarily disable them.
 > *(Being in water will disable them for 15 seconds, while being in rain will only disable them for 3.)*
-:green_circle:__Webbing__
 
+:green_circle:__Webbing__
 > You have 6 different types of webbing available to your disposable, half of them needing a special upgrade for your web shooters.
 > *(You can open your web selection menu with [Secondary].)*
 > *(You can also use the save and load hotbar keys to cycle through the web types.)*
