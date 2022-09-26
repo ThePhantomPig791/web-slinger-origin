@@ -1,0 +1,197 @@
+{
+    "type": "origins:multiple",
+    "start": {
+        "type": "origins:action_on_callback",
+        "entity_action_added": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "data modify entity @s Marker set value 0",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "tag @s remove NewSmallWeb",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 1800,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "kill @s[type=armor_stand]",
+                        "permission_level": 4
+                    }
+                }
+            ]
+        }
+    },
+    "web": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:if_else",
+                    "condition": {
+                        "type": "origins:raycast",
+                        "distance": 150,
+                        "block": false,
+                        "entity": true,
+                        "hit_bientity_condition": {
+                            "type": "origins:target_condition",
+                            "condition": {
+                                "type": "origins:command",
+                                "command": "execute if entity @s[tag=SmallWeb]",
+                                "comparison": "!=",
+                                "compare_to": 0
+                            }
+                        },
+                        "match_bientity_condition": {
+                            "type": "origins:target_condition",
+                            "condition": {
+                                "type": "origins:command",
+                                "command": "execute if entity @s[tag=SmallWeb]",
+                                "comparison": "!=",
+                                "compare_to": 0
+                            }
+                        }
+                    },
+                    "if_action": {
+                        "type": "origins:raycast",
+                        "distance": 150,
+                        "entity": true,
+                        "block": false,
+                        "command_step": 0.1,
+                        "command_along_ray": "particle dust 1 1 1 0.3 ~ ~ ~ 0 0 0 0 5 force"
+                    }
+                },
+                {
+                    "type": "origins:if_else",
+                    "condition": {
+                        "type": "origins:raycast",
+                        "distance": 150,
+                        "block": false,
+                        "entity": true,
+                        "hit_bientity_condition": {
+                            "type": "origins:target_condition",
+                            "condition": {
+                                "type": "origins:command",
+                                "command": "execute if entity @s[tag=SmallWeb]",
+                                "comparison": "!=",
+                                "compare_to": 0
+                            }
+                        },
+                        "match_bientity_condition": {
+                            "type": "origins:target_condition",
+                            "condition": {
+                                "type": "origins:command",
+                                "command": "execute if entity @s[tag=SmallWeb]",
+                                "comparison": "!=",
+                                "compare_to": 0
+                            }
+                        }
+                    },
+                    "if_action": {
+                        "type": "origins:raycast",
+                        "distance": 150,
+                        "entity": true,
+                        "block": false,
+                        "bientity_action": {
+                            "type": "origins:target_action",
+                            "action": {
+                                "type": "origins:if_else",
+                                "condition": {
+                                    "type": "origins:command",
+                                    "command": "execute if entity @s[tag=WebSlinger]",
+                                    "comparison": "==",
+                                    "compare_to": 0
+                                },
+                                "if_action": {
+                                    "type": "origins:apply_effect",
+                                    "effects": [
+                                        {
+                                            "effect": "minecraft:slowness",
+                                            "duration": 20,
+                                            "amplifier": 9,
+                                            "show_icon": false,
+                                            "show_particles": false
+                                        },
+                                        {
+                                            "effect": "minecraft:slow_falling",
+                                            "duration": 20,
+                                            "amplifier": 0,
+                                            "show_icon": false,
+                                            "show_particles": false
+                                        },
+                                        {
+                                            "effect": "minecraft:jump_boost",
+                                            "duration": 20,
+                                            "amplifier": 200,
+                                            "show_icon": false,
+                                            "show_particles": false
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "execute if block ~ ~ ~ #phantom:air run tag @s add ToRemove",
+                    "permission_level": 4
+                }
+            ]
+        }
+    },
+    "remove": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:command",
+            "command": "execute if entity @s[tag=ToRemove]",
+            "comparison": "!=",
+            "compare_to": 0
+        },
+        "rising_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:raycast",
+                    "distance": 150,
+                    "entity": true,
+                    "block": false,
+                    "bientity_condition": {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "origins:command",
+                            "command": "execute if entity @s[tag=SmallWeb,type=armor_stand]",
+                            "comparison": "!=",
+                            "compare_to": 0
+                        }
+                    },
+                    "bientity_action": {
+                        "type": "origins:target_action",
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "tag @s[type=armor_stand] add ToRemove",
+                            "permission_level": 4
+                        }
+                    }
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 1,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "kill @s[type=armor_stand]",
+                        "permission_level": 4
+                    }
+                }
+            ]
+        }
+    }
+}

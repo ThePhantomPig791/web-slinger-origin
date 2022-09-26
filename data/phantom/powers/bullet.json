@@ -1,0 +1,151 @@
+{
+    "type": "origins:multiple",
+    "name": "§r§lWeb Bullet§r",
+    "description": "This small and quick-moving web will harm, blind, and slow any mob it hits!",
+    "badges": [
+        {
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": "Shoot a Web Bullet with %s."
+        }
+    ],
+    "start": {
+        "type": "origins:fire_projectile",
+        "entity_type": "minecraft:snowball",
+        "count": 1,
+        "interval": 1,
+        "speed": 3,
+        "tag": "{Item: {id: 'minecraft:cobweb', Count: 1b}, Tags:[\"WebBullet\"]}",
+        "cooldown": 30,
+        "hud_render": {
+            "should_render": false
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:select_webbing_selected",
+                    "comparison": "==",
+                    "compare_to": 2
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:water_in",
+                    "comparison": "==",
+                    "compare_to": 0
+                }
+            ]
+        }
+    },
+    "hit": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:command",
+            "command": "execute if entity @e[tag=WebBullet,distance=..50]",
+            "comparison": "!=",
+            "compare_to": 0
+        },
+        "rising_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "playsound minecraft:entity.villager.work_cartographer player @a[distance=1..24] ~ ~ ~ 1 2",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "playsound minecraft:phantom.web_bullet player @a[distance=..24]",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 3,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "playsound minecraft:entity.villager.work_cartographer player @a[distance=1..24] ~ ~ ~ 1 2",
+                        "permission_level": 4
+                    }
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 5,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "playsound minecraft:entity.villager.work_cartographer player @a[distance=1..24] ~ ~ ~ 1 2",
+                        "permission_level": 4
+                    }
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:area_of_effect",
+                    "radius": 50,
+                    "bientity_condition": {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "origins:and",
+                            "conditions": [
+                                {
+                                    "type": "origins:command",
+                                    "command": "execute if entity @e[tag=WebBullet,distance=..3]",
+                                    "comparison": "!=",
+                                    "compare_to": 0
+                                },
+                                {
+                                    "type": "origins:living"
+                                }
+                            ]
+                        }
+                    },
+                    "bientity_action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:damage",
+                                "source": {
+                                    "name": "%1$s was webbed to death by %2$s"
+                                },
+                                "amount": 2
+                            },
+                            {
+                                "type": "origins:target_action",
+                                "action": {
+                                    "type": "origins:apply_effect",
+                                    "effects": [
+                                        {
+                                            "effect": "minecraft:blindness",
+                                            "duration": 100,
+                                            "amplifier": 0,
+                                            "show_icon": false,
+                                            "show_particles": true
+                                        },
+                                        {
+                                            "effect": "minecraft:slowness",
+                                            "duration": 100,
+                                            "amplifier": 4,
+                                            "show_icon": false,
+                                            "show_particles": true
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "origins:target_action",
+                                "action": {
+                                    "type": "origins:grant_power",
+                                    "power": "phantom:assign/webbed_overlay",
+                                    "source": "phantom:web_slinger"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

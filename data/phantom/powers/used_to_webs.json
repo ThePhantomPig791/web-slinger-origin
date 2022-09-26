@@ -1,0 +1,36 @@
+{
+    "type": "origins:multiple",
+    "name": "Used To It",
+    "description": "You are able to move through cobwebs faster than others. You can also climb cobwebs as if they were ladders.",
+    "no_slowdown": {
+      "type": "origins:phasing",
+      "block_condition": {
+        "type": "origins:in_tag",
+        "tag": "origins:cobwebs"
+      },
+      "phase_down_condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:on_block"
+          },
+          {
+          "type": "origins:sneaking"
+          }
+        ]
+      },
+      "render_type": "none"
+    },
+    "climbing": {
+
+
+
+
+      "comment": "Yes, this was taken/modified from Origins' 'master of webs' power",
+
+
+
+
+      "type": "origins:simple"
+    }
+}

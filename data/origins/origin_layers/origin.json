@@ -1,0 +1,8 @@
+{
+	"replace": false,
+	"origins": [
+		"phantom:web_slinger"
+	],
+	"allow_random": true,
+	"allow_random_unchoosable": false
+}

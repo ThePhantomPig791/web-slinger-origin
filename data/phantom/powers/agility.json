@@ -1,0 +1,434 @@
+{
+    "type": "origins:multiple",
+    "name": "Agility",
+    "description": "The more you move, the faster you'll go. You also take less fall damage.",
+    "badges": [
+        {
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": "After 3 seconds of moving, you will get speed and jump boost, and the level of each will go up with each second you move. Caps at level 10."
+        },
+        {
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": "You take 80% less fall damage, being able to sustain just over an 100 block fall with half a heart left."
+        },
+        {
+            "sprite": "origins:textures/gui/badge/toggle.png",
+            "text": "Toggle with %s."
+        }
+    ],
+    "toggle": {
+        "type": "origins:toggle",
+        "key": {
+            "key": "key.spectatorOutlines"
+        }
+    },
+    "resource": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 13,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "add": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:moving"
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:swing_swing.holding_direction",
+                    "comparison": ">",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking",
+                    "inverted": true
+                },
+                {
+                    "type": "origins:climbing",
+                    "inverted": true
+                },
+                {
+                    "type": "origins:creative_flying",
+                    "inverted": true
+                },
+                {
+                    "type": "origins:in_block_anywhere",
+                    "block_condition": {
+                        "type": "origins:block",
+                        "block": "minecraft:water"
+                    },
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:power_active",
+                    "power": "*:*_toggle"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:change_resource",
+                    "resource": "*:*_resource",
+                    "change": 1
+                }
+            ]
+        }
+    },
+    "subtract": {
+        "type": "origins:action_over_time",
+        "interval": 3,
+        "condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:swing_swing.holding_direction",
+                    "comparison": "<",
+                    "compare_to": 4
+                },
+                {
+                    "type": "origins:moving",
+                    "inverted": true
+                },
+                {
+                    "type": "origins:sneaking"
+                },
+                {
+                    "type": "origins:climbing"
+                },
+                {
+                    "type": "origins:creative_flying"
+                },
+                {
+                    "type": "origins:in_block_anywhere",
+                    "block_condition": {
+                        "type": "origins:block",
+                        "block": "minecraft:water"
+                    },
+                    "comparison": "!=",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:power_active",
+                    "power": "*:*_toggle",
+                    "inverted": true
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:change_resource",
+                    "resource": "*:*_resource",
+                    "change": -1
+                }
+            ]
+        }
+    },
+    "speed": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_resource",
+            "comparison": ">",
+            "compare_to": 3
+        },
+        "entity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "*:*_resource",
+                        "comparison": "==",
+                        "compare_to": 4
+                    },
+                    "action": {
+                        "type": "origins:apply_effect",
+                        "effects": [
+                            {
+                                "effect": "minecraft:speed",
+                                "amplifier": 0,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            },
+                            {
+                                "effect": "minecraft:jump_boost",
+                                "amplifier": 0,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "*:*_resource",
+                        "comparison": "==",
+                        "compare_to": 5
+                    },
+                    "action": {
+                        "type": "origins:apply_effect",
+                        "effects": [
+                            {
+                                "effect": "minecraft:speed",
+                                "amplifier": 1,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            },
+                            {
+                                "effect": "minecraft:jump_boost",
+                                "amplifier": 1,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "*:*_resource",
+                        "comparison": "==",
+                        "compare_to": 6
+                    },
+                    "action": {
+                        "type": "origins:apply_effect",
+                        "effects": [
+                            {
+                                "effect": "minecraft:speed",
+                                "amplifier": 2,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            },
+                            {
+                                "effect": "minecraft:jump_boost",
+                                "amplifier": 2,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "*:*_resource",
+                        "comparison": "==",
+                        "compare_to": 7
+                    },
+                    "action": {
+                        "type": "origins:apply_effect",
+                        "effects": [
+                            {
+                                "effect": "minecraft:speed",
+                                "amplifier": 3,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            },
+                            {
+                                "effect": "minecraft:jump_boost",
+                                "amplifier": 3,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "*:*_resource",
+                        "comparison": "==",
+                        "compare_to": 8
+                    },
+                    "action": {
+                        "type": "origins:apply_effect",
+                        "effects": [
+                            {
+                                "effect": "minecraft:speed",
+                                "amplifier": 4,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            },
+                            {
+                                "effect": "minecraft:jump_boost",
+                                "amplifier": 4,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "*:*_resource",
+                        "comparison": "==",
+                        "compare_to": 9
+                    },
+                    "action": {
+                        "type": "origins:apply_effect",
+                        "effects": [
+                            {
+                                "effect": "minecraft:speed",
+                                "amplifier": 5,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            },
+                            {
+                                "effect": "minecraft:jump_boost",
+                                "amplifier": 5,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "*:*_resource",
+                        "comparison": "==",
+                        "compare_to": 10
+                    },
+                    "action": {
+                        "type": "origins:apply_effect",
+                        "effects": [
+                            {
+                                "effect": "minecraft:speed",
+                                "amplifier": 6,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            },
+                            {
+                                "effect": "minecraft:jump_boost",
+                                "amplifier": 6,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "*:*_resource",
+                        "comparison": "==",
+                        "compare_to": 11
+                    },
+                    "action": {
+                        "type": "origins:apply_effect",
+                        "effects": [
+                            {
+                                "effect": "minecraft:speed",
+                                "amplifier": 7,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            },
+                            {
+                                "effect": "minecraft:jump_boost",
+                                "amplifier": 7,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "*:*_resource",
+                        "comparison": "==",
+                        "compare_to": 12
+                    },
+                    "action": {
+                        "type": "origins:apply_effect",
+                        "effects": [
+                            {
+                                "effect": "minecraft:speed",
+                                "amplifier": 8,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            },
+                            {
+                                "effect": "minecraft:jump_boost",
+                                "amplifier": 8,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "*:*_resource",
+                        "comparison": "==",
+                        "compare_to": 13
+                    },
+                    "action": {
+                        "type": "origins:apply_effect",
+                        "effects": [
+                            {
+                                "effect": "minecraft:speed",
+                                "amplifier": 9,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            },
+                            {
+                                "effect": "minecraft:jump_boost",
+                                "amplifier": 9,
+                                "duration": 5,
+                                "show_icon": false,
+                                "show_particles": false
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "fall_damage": {
+        "type": "origins:modify_damage_taken",
+        "damage_condition": {
+            "type": "origins:from_falling"
+        },
+        "modifier": {
+            "name": "Less fall damage",
+            "operation": "multiply_total",
+            "value": -0.8
+        }
+    }
+}

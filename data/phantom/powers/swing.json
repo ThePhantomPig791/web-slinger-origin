@@ -1,0 +1,681 @@
+{
+    "type": "origins:multiple",
+    "name": "§r§lSpider Web§r",
+    "description": "This versatile web type can be used for anything real spiders use their webs for! You can swing to get from point A to point B quickly, or you can create a line of thick web that traps your foes inside of it!",
+    "badges": [
+        {
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": "Initiate a web swing with %s. Hold the Use key to hold the webs, and let go of it to stop swinging. You can shoot up to 6 spider webs at a time."
+        },
+        {
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": "Create a web line by shooting exactly two spider webs and pressing the Attack key."
+        }
+    ],
+    "swing.start": {
+        "type": "origins:active_self",
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:raycast",
+                    "distance": 150,
+                    "fluid_handling": "none",
+                    "block_action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:execute_command",
+                                "command": "tag @e[type=armor_stand,distance=..0.5,tag=SmallWeb] add ToRemove"
+                            },
+                            {
+                                "type": "origins:execute_command",
+                                "command": "summon minecraft:armor_stand ~ ~ ~ {Marker:1,Tags:[\"SwingingAnchorStand\"],Small:1,Invisible:1}"
+                            }
+                        ]
+                    },
+                    "hit_action": {
+                        "type": "origins:execute_command",
+                        "command": "tag @s add Swinging",
+                        "permission_level": 4
+                    }
+                },
+                {
+                    "type": "apoli:trigger_cooldown",
+                    "power": "*:*_swing.holding"
+                },
+                {
+                    "type": "origins:if_else",
+                    "condition": {
+                        "type": "origins:raycast",
+                        "distance": 150,
+                        "fluid_handling": "none",
+                        "entity": true,
+                        "block": true,
+                        "block_condition": {
+                            "type": "origins:constant",
+                            "value": true
+                        },
+                        "hit_bientity_condition": {
+                            "type": "origins:target_condition",
+                            "condition": {
+                                "type": "origins:exists"
+                            },
+                            "inverted": true
+                        }
+                    },
+                    "if_action": {
+                        "type": "origins:execute_command",
+                        "command": "playsound minecraft:phantom.swing player @a[distance=..48]",
+                        "permission_level": 4
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "playsound minecraft:entity.villager.work_cartographer player @a[distance=1..24] ~ ~ ~ 1 2",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 3,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "playsound minecraft:entity.villager.work_cartographer player @a[distance=1..24] ~ ~ ~ 1 2",
+                        "permission_level": 4
+                    }
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 5,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "playsound minecraft:entity.villager.work_cartographer player @a[distance=1..24] ~ ~ ~ 1 2",
+                        "permission_level": 4
+                    }
+                }
+            ]
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:command",
+                    "command": "execute if entity @e[type=armor_stand,tag=SwingingAnchorStand,distance=..150]",
+                    "comparison": "<=",
+                    "compare_to": 5
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:select_webbing_selected",
+                    "comparison": "==",
+                    "compare_to": 1
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:water_in",
+                    "comparison": "==",
+                    "compare_to": 0
+                }
+            ]
+        }
+    },
+    "swing.holding": {
+        "type": "apoli:cooldown",
+        "cooldown": 5,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "swing.hold": {
+        "type": "apoli:active_self",
+        "entity_action": {
+            "type": "apoli:trigger_cooldown",
+            "power": "*:*_swing.holding"
+        },
+        "key": {
+            "key": "key.use",
+            "continuous": true
+        }
+    },
+    "swing.holding_direction": {
+        "type": "apoli:cooldown",
+        "cooldown": 5,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "swing.hold_direction_1": {
+        "type": "apoli:active_self",
+        "entity_action": {
+            "type": "apoli:trigger_cooldown",
+            "power": "*:*_swing.holding_direction"
+        },
+        "key": {
+            "key": "key.forward",
+            "continuous": true
+        }
+    },
+    "swing.hold_direction_2": {
+        "type": "apoli:active_self",
+        "entity_action": {
+            "type": "apoli:trigger_cooldown",
+            "power": "*:*_swing.holding_direction"
+        },
+        "key": {
+            "key": "key.left",
+            "continuous": true
+        }
+    },
+    "swing.hold_direction_3": {
+        "type": "apoli:active_self",
+        "entity_action": {
+            "type": "apoli:trigger_cooldown",
+            "power": "*:*_swing.holding_direction"
+        },
+        "key": {
+            "key": "key.back",
+            "continuous": true
+        }
+    },
+    "swing.hold_direction_4": {
+        "type": "apoli:active_self",
+        "entity_action": {
+            "type": "apoli:trigger_cooldown",
+            "power": "*:*_swing.holding_direction"
+        },
+        "key": {
+            "key": "key.right",
+            "continuous": true
+        }
+    },
+    "swing.up": {
+        "type": "apoli:active_self",
+        "entity_action": {
+            "type": "apoli:add_velocity",
+            "y": 0.03
+        },
+        "key": {
+            "key": "key.jump",
+            "continuous": true
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:command",
+                    "command": "execute if entity @e[type=armor_stand,tag=SwingingAnchorStand,distance=..150]",
+                    "comparison": "!=",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:water_in",
+                    "comparison": "==",
+                    "compare_to": 0
+                }
+            ]
+        }
+    },
+    "swing.down": {
+        "type": "apoli:active_self",
+        "entity_action": {
+            "type": "apoli:add_velocity",
+            "y": -0.035
+        },
+        "key": {
+            "key": "key.sneak",
+            "continuous": true
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:command",
+                    "command": "execute if entity @e[type=armor_stand,tag=SwingingAnchorStand,distance=..150]",
+                    "comparison": "!=",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:water_in",
+                    "comparison": "==",
+                    "compare_to": 0
+                }
+            ]
+        }
+    },
+    "swing.swing": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "apoli:resource",
+                    "resource": "*:*_swing.holding",
+                    "comparison": ">",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:command",
+                    "command": "execute if entity @e[type=armor_stand,tag=SwingingAnchorStand,distance=..150]",
+                    "comparison": "!=",
+                    "compare_to": 0
+                }
+            ]
+        },
+        "falling_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:area_of_effect",
+                    "radius": 150,
+                    "bientity_condition": {
+                        "type": "apoli:target_condition",
+                        "condition": {
+                            "type": "apoli:and",
+                            "conditions": [
+                                {
+                                    "type": "apoli:command",
+                                    "command": "execute if entity @s[tag=SwingingAnchorStand]",
+                                    "comparison": "==",
+                                    "compare_to": 1
+                                }
+                            ]
+                        }
+                    },
+                    "bientity_action": {
+                        "type": "origins:target_action",
+                        "action": {
+                            "type": "origins:raycast",
+                            "distance": 150,
+                            "entity": true,
+                            "block": false,
+                            "command_step": 0.1,
+                            "command_along_ray": "particle minecraft:block minecraft:white_wool ~ ~ ~ 0 0 0 0 1 normal"
+                        }
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "tag @s remove Swinging",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "kill @e[tag=SwingingAnchorStand,distance=..150]",
+                    "permission_level": 4
+                },
+                {
+                    "type": "apoli:add_velocity",
+                    "space": "local",
+                    "z": 0.7,
+                    "y": 0.3
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "execute as @e[type=minecraft:armor_stand,distance=..150,tag=SwingingAnchorStand,tag=!SmallWeb] at @s facing entity @a[tag=Swinging,limit=1,sort=nearest,distance=..150] feet run tp @s ~ ~ ~ ~ ~",
+                    "permission_level": 4
+                },
+                {
+                    "type": "apoli:area_of_effect",
+                    "radius": 150,
+                    "bientity_action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "apoli:target_action",
+                                "action": {
+                                    "type": "apoli:area_of_effect",
+                                    "radius": 150,
+                                    "bientity_action": {
+                                        "type": "apoli:and",
+                                        "actions": [
+                                            {
+                                                "type": "apoli:if_else",
+                                                "condition": {
+                                                    "type": "origins:target_condition",
+                                                    "condition": {
+                                                        "type": "apoli:resource",
+                                                        "resource": "*:*_swing.holding_direction",
+                                                        "comparison": ">",
+                                                        "compare_to": 0
+                                                    }
+                                                },
+                                                "if_action": {
+                                                    "type": "apoli:add_velocity",
+                                                    "z": -0.08
+                                                },
+                                                "else_action": {
+                                                    "type": "apoli:add_velocity",
+                                                    "z": -0.05
+                                                }
+                                            },
+                                            {
+                                                "type": "apoli:target_action",
+                                                "action": {
+                                                    "type": "apoli:if_else",
+                                                    "condition": {
+                                                        "type": "apoli:resource",
+                                                        "resource": "*:*_swing.holding_direction",
+                                                        "comparison": ">",
+                                                        "compare_to": 0
+                                                    },
+                                                    "if_action": {
+                                                        "type": "origins:if_else",
+                                                        "condition": {
+                                                            "type": "origins:command",
+                                                            "command": "execute if entity @e[type=armor_stand,tag=SwingingAnchorStand,distance=..150]",
+                                                            "comparison": "==",
+                                                            "compare_to": 1
+                                                        },
+                                                        "if_action": {
+                                                            "type": "apoli:add_velocity",
+                                                            "space": "velocity_horizontal_normalized",
+                                                            "z": 0.06
+                                                        },
+                                                        "else_action": {
+                                                            "type": "origins:if_else",
+                                                            "condition": {
+                                                                "type": "origins:and",
+                                                                "conditions": [
+                                                                    {
+                                                                        "type": "origins:command",
+                                                                        "command": "execute if entity @e[type=armor_stand,tag=SwingingAnchorStand,distance=..150]",
+                                                                        "comparison": ">=",
+                                                                        "compare_to": 2
+                                                                    },
+                                                                    {
+                                                                        "type": "origins:command",
+                                                                        "command": "execute if entity @e[type=armor_stand,tag=SwingingAnchorStand,distance=..150]",
+                                                                        "comparison": "<=",
+                                                                        "compare_to": 4
+                                                                    }
+                                                                ]
+                                                            },
+                                                            "if_action": {
+                                                                "type": "origins:nothing"
+                                                            },
+                                                            "else_action": {
+                                                                "type": "apoli:add_velocity",
+                                                                "space": "local_horizontal",
+                                                                "y": 0.03
+                                                            }
+                                                        }
+                                                    },
+                                                    "else_action": {
+                                                        "type": "origins:if_else",
+                                                        "condition": {
+                                                            "type": "origins:and",
+                                                            "conditions": [
+                                                                {
+                                                                    "type": "origins:command",
+                                                                    "command": "execute if entity @e[type=armor_stand,tag=SwingingAnchorStand,distance=..150]",
+                                                                    "comparison": ">=",
+                                                                    "compare_to": 2
+                                                                },
+                                                                {
+                                                                    "type": "origins:command",
+                                                                    "command": "execute if entity @e[type=armor_stand,tag=SwingingAnchorStand,distance=..150]",
+                                                                    "comparison": "<=",
+                                                                    "compare_to": 4
+                                                                }
+                                                            ]
+                                                        },
+                                                        "if_action": {
+                                                            "type": "origins:nothing"
+                                                        },
+                                                        "else_action": {
+                                                            "type": "apoli:add_velocity",
+                                                            "space": "local_horizontal",
+                                                            "y": 0.03
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "type": "apoli:if_else",
+                                                "condition": {
+                                                    "type": "origins:target_condition",
+                                                    "condition": {
+                                                        "type": "origins:command",
+                                                        "command": "execute if entity @e[type=armor_stand,tag=SwingingAnchorStand,distance=10..24]",
+                                                        "comparison": "!=",
+                                                        "compare_to": 0
+                                                    }
+                                                },
+                                                "if_action": {
+                                                    "type": "apoli:add_velocity",
+                                                    "z": -0.06
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "bientity_condition": {
+                                        "type": "apoli:target_condition",
+                                        "condition": {
+                                            "type": "apoli:and",
+                                            "conditions": [
+                                                {
+                                                    "type": "apoli:command",
+                                                    "command": "execute if entity @s[tag=Swinging,type=minecraft:player]",
+                                                    "comparison": "==",
+                                                    "compare_to": 1
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "apoli:target_action",
+                                "action": {
+                                    "type": "origins:raycast",
+                                    "distance": 150,
+                                    "entity": true,
+                                    "block": false,
+                                    "command_step": 0.1,
+                                    "command_along_ray": "particle dust 1 1 1 0.3 ~ ~ ~ 0 0 0 0 5 normal"
+                                }
+                            }
+                        ]
+                    },
+                    "bientity_condition": {
+                        "type": "apoli:target_condition",
+                        "condition": {
+                            "type": "apoli:and",
+                            "conditions": [
+                                {
+                                    "type": "apoli:command",
+                                    "command": "execute if entity @s[tag=SwingingAnchorStand]",
+                                    "comparison": "==",
+                                    "compare_to": 1
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "swing.no_fall_damage": {
+        "type": "apoli:invulnerability",
+        "damage_condition": {
+            "type": "apoli:or",
+            "conditions": [
+                {
+                    "type": "apoli:name",
+                    "name": "fall"
+                },
+                {
+                    "type": "apoli:name",
+                    "name": "fall.player"
+                }
+            ]
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "apoli:resource",
+                    "resource": "*:*_swing.holding",
+                    "comparison": ">",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:command",
+                    "command": "execute if entity @e[type=armor_stand,tag=SwingingAnchorStand,distance=..150]",
+                    "comparison": "!=",
+                    "compare_to": 0
+                }
+            ]
+        }
+    },
+    "remove_bad_anchors": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "execute as @e[tag=SwingingAnchorStand,type=minecraft:armor_stand] at @s if block ~ ~ ~ #phantom:air run kill @s",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "execute as @e[tag=SwingingAnchorStand,type=minecraft:armor_stand,distance=150..160] run kill @s",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:if_else",
+                    "condition": {
+                        "type": "origins:relative_health",
+                        "comparison": "==",
+                        "compare_to": 0
+                    },
+                    "if_action": {
+                        "type": "origins:execute_command",
+                        "command": "execute as @e[tag=SwingingAnchorStand,type=minecraft:armor_stand,distance=..160] run kill @s",
+                        "permission_level": 4
+                    }
+                }
+            ]
+        }
+    },
+    "small_web": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.attack"
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "playsound minecraft:phantom.small_web player @a[distance=..24]",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 3,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "playsound minecraft:entity.villager.work_cartographer player @a[distance=1..24] ~ ~ ~ 1 2",
+                        "permission_level": 4
+                    }
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 5,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "playsound minecraft:entity.villager.work_cartographer player @a[distance=1..24] ~ ~ ~ 1 2",
+                        "permission_level": 4
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "execute as @e[tag=SwingingAnchorStand,type=minecraft:armor_stand,distance=..150,limit=2,sort=nearest] run tag @s add SmallWeb",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "execute as @e[tag=SwingingAnchorStand,type=minecraft:armor_stand,distance=..150,limit=2,sort=nearest] run tag @s add NewSmallWeb",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 1,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "execute as @e[tag=SwingingAnchorStand,type=minecraft:armor_stand,tag=SmallWeb,tag=NewSmallWeb,distance=..150,limit=2,sort=nearest] at @s facing entity @e[tag=SwingingAnchorStand,tag=SmallWeb,tag=NewSmallWeb,limit=1,sort=nearest,distance=2..150] feet run tp @s ~ ~ ~ ~ ~",
+                        "permission_level": 4
+                    }
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 4,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "execute as @e[tag=SwingingAnchorStand,type=minecraft:armor_stand,distance=..150,limit=2,sort=nearest] run tag @s remove SwingingAnchorStand",
+                        "permission_level": 4
+                    }
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 5,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "execute as @e[tag=SmallWeb,tag=NewSmallWeb,type=minecraft:armor_stand,distance=..150,limit=2,sort=nearest] run power grant @s phantom:assign/small_web",
+                        "permission_level": 4
+                    }
+                }
+            ]
+        },
+        "cooldown": 20,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:command",
+                    "command": "execute if entity @e[type=armor_stand,tag=SwingingAnchorStand,distance=..150]",
+                    "comparison": "==",
+                    "compare_to": 2
+                },
+                {
+                    "type": "origins:command",
+                    "command": "execute if entity @e[type=armor_stand,tag=SmallWeb,distance=..150]",
+                    "comparison": "<",
+                    "compare_to": 10
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:water_in",
+                    "comparison": "==",
+                    "compare_to": 0
+                }
+            ]
+        }
+    },
+    "small_web_particle_loop": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "condition": {
+            "type": "origins:command",
+            "command": "execute if entity @e[type=armor_stand,tag=SmallWeb,distance=..150]",
+            "comparison": "!=",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:execute_command",
+            "command": "execute at @e[tag=SmallWeb,tag=!NewSmallWeb,type=minecraft:armor_stand,distance=..150,limit=2,sort=nearest] run particle minecraft:block_marker minecraft:cobweb ~ ~0.5 ~ 0.15 0.15 0.15 0 1 force",
+            "permission_level": 4
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:string"
+        },
+        "title": "Web-Slinger",
+        "description": "Choose the Web-Slinger origin",
+        "background": "minecraft:textures/block/white_wool.png",
+        "frame": "challenge",
+        "announce_to_chat": true,
+        "show_toast": true
+    },
+    "criteria": {
+        "choose": {
+            "trigger": "minecraft:impossible"
+        }
+    }
+}

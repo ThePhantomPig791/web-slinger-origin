@@ -1,0 +1,24 @@
+{
+    "type": "origins:action_on_callback",
+    "entity_action_added": {
+        "type": "origins:execute_command",
+        "command": "tag @s add WebSlinger",
+        "permission_level": 4
+    },
+    "entity_action_removed": {
+        "type": "origins:execute_command",
+        "command": "tag @s remove WebSlinger",
+        "permission_level": 4
+    },
+    "entity_action_gained": {
+        "type": "origins:execute_command",
+        "command": "advancement grant @s only phantom:choose_web_slinger",
+        "permission_level": 4
+    },
+    "entity_action_lost": {
+        "type": "origins:execute_command",
+        "command": "advancement revoke @s from phantom:choose_web_slinger",
+        "permission_level": 4
+    },
+    "hidden": true
+}

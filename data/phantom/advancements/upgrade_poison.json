@@ -1,0 +1,16 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:potion",
+            "nbt": "{Potion:\"minecraft:poison\"}"
+        },
+        "title": "Toxicity",
+        "description": "Use a poison potion and a pufferfish to make your Web Shooters toxic to the touch"
+    },
+    "criteria": {
+        "upgrade": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "phantom:choose_web_slinger"
+}

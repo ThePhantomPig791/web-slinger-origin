@@ -1,0 +1,26 @@
+{
+    "name": "Flammable",
+    "description": "Hot things cause your backup webs to burst into flames, making you take triple fire, lava, and magma damage.",
+    "type": "origins:modify_damage_taken",
+    "damage_condition": {
+        "type": "origins:or",
+        "conditions": [
+            {
+                "type": "origins:fire"
+            },
+            {
+                "type": "origins:name",
+                "name": "hotFloor"
+            },
+            {
+                "type": "origins:name",
+                "name": "hotFloor.player"
+            }
+        ]
+    },
+    "modifier": {
+        "name": "3x fire damage",
+        "operation": "multiply_base",
+        "value": 2
+    }
+}

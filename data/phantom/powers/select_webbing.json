@@ -1,0 +1,644 @@
+{
+    "type": "origins:multiple",
+    "name": "Webbing",
+    "description": "You have 6 different types of webbing available to your disposable, half of them needing a special upgrade for your web shooters.",
+    "badges": [
+        {
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": "You can open your web selection menu with %s."
+        },
+        {
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": "You can also use the save and load hotbar keys to cycle through the web types."
+        }
+    ],
+    "select": {
+        "type": "extraorigins:radial_menu",
+        "key": {
+            "key": "key.origins.secondary_active"
+        },
+        "sprite_location": "phantom:textures/gui/webbing_select_1.png",
+        "up_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:delay",
+                    "ticks": 2,
+                    "action": {
+                        "type": "origins:change_resource",
+                        "resource": "*:*_selected",
+                        "change": 1,
+                        "operation": "set"
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Spider Web\",\"underlined\":true}]",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "modifier": {
+                        "operation": "set_total",
+                        "resource": "*:*_selected",
+                        "value": 1
+                    },
+                    "resource": "*:*_last_selected",
+                    "value": 1
+                }
+            ]
+        },
+        "left_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:delay",
+                    "ticks": 1,
+                    "action": {
+                        "type": "origins:change_resource",
+                        "resource": "*:*_selected",
+                        "change": 0,
+                        "operation": "set"
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Latch Web\",\"underlined\":true}]",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "modifier": {
+                        "operation": "set_total",
+                        "resource": "*:*_selected",
+                        "value": 1
+                    },
+                    "resource": "*:*_last_selected",
+                    "value": 1
+                }
+            ]
+        },
+        "right_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:delay",
+                    "ticks": 1,
+                    "action": {
+                        "type": "origins:change_resource",
+                        "resource": "*:*_selected",
+                        "change": 2,
+                        "operation": "set"
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Web Bullet\",\"underlined\":true}]",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "modifier": {
+                        "operation": "set_total",
+                        "resource": "*:*_selected",
+                        "value": 1
+                    },
+                    "resource": "*:*_last_selected",
+                    "value": 1
+                }
+            ]
+        },
+        "down_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:grant_power",
+                    "power": "phantom:select_webbing_select_special",
+                    "source": "phantom:web_slinger"
+                },
+                {
+                    "type": "origins:revoke_power",
+                    "power": "phantom:select_webbing_select",
+                    "source": "phantom:web_slinger"
+                }
+            ]
+        },
+        "swap_time": 7,
+        "lost_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:delay",
+                    "ticks": 3,
+                    "action": {
+                        "type": "origins:change_resource",
+                        "resource": "*:*_selected",
+                        "change": 3,
+                        "operation": "set"
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Web Grenade\",\"underlined\":true}]",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "modifier": {
+                        "operation": "set_total",
+                        "resource": "*:*_selected",
+                        "value": 1
+                    },
+                    "resource": "*:*_last_selected",
+                    "value": 1
+                }
+            ]
+        }
+    },
+    "select_special": {
+        "type": "extraorigins:radial_menu",
+        "key": {
+            "key": "key.origins.secondary_active"
+        },
+        "sprite_location": "phantom:textures/gui/webbing_select_2.png",
+        "up_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:delay",
+                    "ticks": 1,
+                    "action": {
+                        "type": "origins:change_resource",
+                        "resource": "*:*_selected",
+                        "change": 3,
+                        "operation": "set"
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Web Grenade\",\"underlined\":true}]",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "modifier": {
+                        "operation": "set_total",
+                        "resource": "*:*_selected",
+                        "value": 1
+                    },
+                    "resource": "*:*_last_selected",
+                    "value": 1
+                }
+            ]
+        },
+        "left_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:revoke_power",
+                    "power": "phantom:select_webbing_select_special",
+                    "source": "phantom:web_slinger"
+                },
+                {
+                    "type": "origins:grant_power",
+                    "power": "phantom:select_webbing_select",
+                    "source": "phantom:web_slinger"
+                }
+            ]
+        },
+        "right_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:delay",
+                    "ticks": 1,
+                    "action": {
+                        "type": "origins:change_resource",
+                        "resource": "*:*_selected",
+                        "change": 4,
+                        "operation": "set"
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Poison Web\",\"underlined\":true}]",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "modifier": {
+                        "operation": "set_total",
+                        "resource": "*:*_selected",
+                        "value": 1
+                    },
+                    "resource": "*:*_last_selected",
+                    "value": 1
+                }
+            ]
+        },
+        "down_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:delay",
+                    "ticks": 1,
+                    "action": {
+                        "type": "origins:change_resource",
+                        "resource": "*:*_selected",
+                        "change": 5,
+                        "operation": "set"
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Electric Web\",\"underlined\":true}]",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "modifier": {
+                        "operation": "set_total",
+                        "resource": "*:*_selected",
+                        "value": 1
+                    },
+                    "resource": "*:*_last_selected",
+                    "value": 1
+                }
+            ]
+        },
+        "swap_time": 20
+    },
+    "selected": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 5,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "last_selected": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 5,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "hud": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:if_else_list",
+                    "actions": [
+                        {
+                            "condition": {
+                                "type": "origins:resource",
+                                "resource": "phantom:select_webbing_selected",
+                                "comparison": "==",
+                                "compare_to": 0
+                            },
+                            "action": {
+                                "type": "origins:execute_command",
+                                "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Latch Web\",\"underlined\":true}]",
+                                "permission_level": 4
+                            }
+                        },
+                        {
+                            "condition": {
+                                "type": "origins:resource",
+                                "resource": "phantom:select_webbing_selected",
+                                "comparison": "==",
+                                "compare_to": 1
+                            },
+                            "action": {
+                                "type": "origins:execute_command",
+                                "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Spider Web\",\"underlined\":true}]",
+                                "permission_level": 4
+                            }
+                        },
+                        {
+                            "condition": {
+                                "type": "origins:resource",
+                                "resource": "phantom:select_webbing_selected",
+                                "comparison": "==",
+                                "compare_to": 2
+                            },
+                            "action": {
+                                "type": "origins:execute_command",
+                                "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Web Bullet\",\"underlined\":true}]",
+                                "permission_level": 4
+                            }
+                        },
+                        {
+                            "condition": {
+                                "type": "origins:resource",
+                                "resource": "phantom:select_webbing_selected",
+                                "comparison": "==",
+                                "compare_to": 3
+                            },
+                            "action": {
+                                "type": "origins:execute_command",
+                                "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Web Grenade\",\"underlined\":true}]",
+                                "permission_level": 4
+                            }
+                        },
+                        {
+                            "condition": {
+                                "type": "origins:resource",
+                                "resource": "phantom:select_webbing_selected",
+                                "comparison": "==",
+                                "compare_to": 4
+                            },
+                            "action": {
+                                "type": "origins:execute_command",
+                                "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Poison Web\",\"underlined\":true}]",
+                                "permission_level": 4
+                            }
+                        },
+                        {
+                            "condition": {
+                                "type": "origins:resource",
+                                "resource": "phantom:select_webbing_selected",
+                                "comparison": "==",
+                                "compare_to": 5
+                            },
+                            "action": {
+                                "type": "origins:execute_command",
+                                "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Electric Web\",\"underlined\":true}]",
+                                "permission_level": 4
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "select_forward_back": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.saveToolbarActivator",
+            "continuous": true
+        },
+        "cooldown": 5,
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:if_else",
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "phantom:select_webbing_selected",
+                        "comparison": "==",
+                        "compare_to": 0
+                    },
+                    "if_action": {
+                        "type": "origins:change_resource",
+                        "resource": "*:*_selected",
+                        "change": 5
+                    },
+                    "else_action": {
+                        "type": "origins:change_resource",
+                        "resource": "*:*_selected",
+                        "change": -1
+                    }
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 1,
+                    "action": {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "phantom:select_webbing_selected",
+                                    "comparison": "==",
+                                    "compare_to": 0
+                                },
+                                "action": {
+                                    "type": "origins:execute_command",
+                                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Latch Web\",\"underlined\":true}]",
+                                    "permission_level": 4
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "phantom:select_webbing_selected",
+                                    "comparison": "==",
+                                    "compare_to": 1
+                                },
+                                "action": {
+                                    "type": "origins:execute_command",
+                                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Spider Web\",\"underlined\":true}]",
+                                    "permission_level": 4
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "phantom:select_webbing_selected",
+                                    "comparison": "==",
+                                    "compare_to": 2
+                                },
+                                "action": {
+                                    "type": "origins:execute_command",
+                                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Web Bullet\",\"underlined\":true}]",
+                                    "permission_level": 4
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "phantom:select_webbing_selected",
+                                    "comparison": "==",
+                                    "compare_to": 3
+                                },
+                                "action": {
+                                    "type": "origins:execute_command",
+                                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Web Grenade\",\"underlined\":true}]",
+                                    "permission_level": 4
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "phantom:select_webbing_selected",
+                                    "comparison": "==",
+                                    "compare_to": 4
+                                },
+                                "action": {
+                                    "type": "origins:execute_command",
+                                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Poison Web\",\"underlined\":true}]",
+                                    "permission_level": 4
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "phantom:select_webbing_selected",
+                                    "comparison": "==",
+                                    "compare_to": 5
+                                },
+                                "action": {
+                                    "type": "origins:execute_command",
+                                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Electric Web\",\"underlined\":true}]",
+                                    "permission_level": 4
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "select_back_forward": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.loadToolbarActivator",
+            "continuous": true
+        },
+        "cooldown": 5,
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:if_else",
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "phantom:select_webbing_selected",
+                        "comparison": "==",
+                        "compare_to": 5
+                    },
+                    "if_action": {
+                        "type": "origins:change_resource",
+                        "resource": "*:*_selected",
+                        "change": -5
+                    },
+                    "else_action": {
+                        "type": "origins:change_resource",
+                        "resource": "*:*_selected",
+                        "change": 1
+                    }
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 1,
+                    "action": {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "phantom:select_webbing_selected",
+                                    "comparison": "==",
+                                    "compare_to": 0
+                                },
+                                "action": {
+                                    "type": "origins:execute_command",
+                                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Latch Web\",\"underlined\":true}]",
+                                    "permission_level": 4
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "phantom:select_webbing_selected",
+                                    "comparison": "==",
+                                    "compare_to": 1
+                                },
+                                "action": {
+                                    "type": "origins:execute_command",
+                                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Spider Web\",\"underlined\":true}]",
+                                    "permission_level": 4
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "phantom:select_webbing_selected",
+                                    "comparison": "==",
+                                    "compare_to": 2
+                                },
+                                "action": {
+                                    "type": "origins:execute_command",
+                                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Web Bullet\",\"underlined\":true}]",
+                                    "permission_level": 4
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "phantom:select_webbing_selected",
+                                    "comparison": "==",
+                                    "compare_to": 3
+                                },
+                                "action": {
+                                    "type": "origins:execute_command",
+                                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Web Grenade\",\"underlined\":true}]",
+                                    "permission_level": 4
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "phantom:select_webbing_selected",
+                                    "comparison": "==",
+                                    "compare_to": 4
+                                },
+                                "action": {
+                                    "type": "origins:execute_command",
+                                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Poison Web\",\"underlined\":true}]",
+                                    "permission_level": 4
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "phantom:select_webbing_selected",
+                                    "comparison": "==",
+                                    "compare_to": 5
+                                },
+                                "action": {
+                                    "type": "origins:execute_command",
+                                    "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Electric Web\",\"underlined\":true}]",
+                                    "permission_level": 4
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "load": {
+        "type": "origins:action_on_callback",
+        "entity_action_added": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:delay",
+                    "ticks": 3,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "title @s actionbar [\"\",{\"text\":\"Selected Webbing: \",\"color\":\"black\"},{\"text\":\"Spider Web\",\"underlined\":true}]",
+                        "permission_level": 4
+                    }
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 3,
+                    "action": {
+                        "type": "origins:change_resource",
+                        "resource": "*:*_selected",
+                        "change": 1,
+                        "operation": "set"
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{
+	"powers": [
+		"phantom:agility",
+		"phantom:water",
+		"phantom:select_webbing",
+		"phantom:pull",
+		"phantom:swing",
+		"phantom:bullet",
+		"phantom:upgrade",
+		"phantom:grenade",
+		"phantom:poison",
+		"phantom:electric",
+		"phantom:used_to_webs",
+		"phantom:climbing",
+
+		"phantom:strength",
+
+		"phantom:special_restrictions",
+		"phantom:fire",
+		
+		"phantom:tags"
+	],
+	"icon": "minecraft:string",
+	"order": 4,
+	"impact": 2,
+	"name": "Web Slinger",
+	"description": " "
+}

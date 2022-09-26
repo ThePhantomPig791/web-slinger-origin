@@ -1,0 +1,271 @@
+{
+    "type": "origins:multiple",
+    "name": "§r§lWeb Grenade§r",
+    "description": "This web type will fire a gravity-affected projectile which explodes into a cloud of webs upon hitting something.",
+    "badges": [
+        {
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": "Shoot a Web Grenade with %s."
+        }
+    ],
+    "start": {
+        "type": "origins:fire_projectile",
+        "entity_type": "minecraft:falling_block",
+        "count": 1,
+        "interval": 1,
+        "speed": 1.5,
+        "tag": "{Time:-1,BlockState:{Name:\"origins:temporary_cobweb\"},Tags:[\"WebGrenade\"]}",
+        "cooldown": 160,
+        "hud_render": {
+            "should_render": true,
+            "bar_index": 5
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:select_webbing_selected",
+                    "comparison": "==",
+                    "compare_to": 3
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:water_in",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:advancement",
+                    "advancement": "phantom:upgrade_grenade"
+                }
+            ]
+        }
+    },
+    "shoot_sound": {
+        "type": "origins:active_self",
+        "entity_action": {
+            "type": "origins:execute_command",
+            "command": "playsound minecraft:phantom.grenade_shoot player @a[distance=..48]",
+            "permission_level": 4
+        },
+        "cooldown": 160,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:select_webbing_selected",
+                    "comparison": "==",
+                    "compare_to": 3
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:water_in",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:advancement",
+                    "advancement": "phantom:upgrade_grenade"
+                }
+            ]
+        }
+    },
+    "not_yet_upgraded": {
+        "type": "origins:active_self",
+        "entity_action": {
+            "type": "origins:execute_command",
+            "command": "playsound minecraft:phantom.broken_web_shooter player @a[distance=..16] ~ ~ ~ 1 1",
+            "permission_level": 4
+        },
+        "cooldown": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:select_webbing_selected",
+                    "comparison": "==",
+                    "compare_to": 3
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:water_in",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:advancement",
+                    "advancement": "phantom:upgrade_grenade",
+                    "inverted": true
+                }
+            ]
+        }
+    },
+    "explode": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:command",
+            "command": "execute if entity @e[tag=WebGrenade,distance=..50,type=falling_block]",
+            "comparison": "!=",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:delay",
+            "ticks": 3,
+            "action": {
+                "type": "origins:area_of_effect",
+                "radius": 50,
+                "bientity_condition": {
+                    "type": "origins:and",
+                    "conditions": [
+                        {
+                            "type": "origins:target_condition",
+                            "condition": {
+                                "type": "origins:command",
+                                "command": "execute if entity @s[tag=WebGrenade,type=falling_block]",
+                                "comparison": "!=",
+                                "compare_to": 0
+                            }
+                        }
+                    ]
+                },
+                "bientity_action": {
+                    "type": "origins:target_action",
+                    "action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:if_else",
+                                "condition": {
+                                    "type": "origins:or",
+                                    "conditions": [
+                                        {
+                                            "type": "origins:command",
+                                            "command": "execute if block ~ ~-2 ~ #phantom:web_replaceable",
+                                            "comparison": "==",
+                                            "compare_to": 0
+                                        },
+                                        {
+                                            "type": "origins:command",
+                                            "command": "execute if block ~ ~2 ~ #phantom:web_replaceable",
+                                            "comparison": "==",
+                                            "compare_to": 0
+                                        },
+                                        {
+                                            "type": "origins:command",
+                                            "command": "execute if block ~-2 ~ ~ #phantom:web_replaceable",
+                                            "comparison": "==",
+                                            "compare_to": 0
+                                        },
+                                        {
+                                            "type": "origins:command",
+                                            "command": "execute if block ~2 ~ ~ #phantom:web_replaceable",
+                                            "comparison": "==",
+                                            "compare_to": 0
+                                        },
+                                        {
+                                            "type": "origins:command",
+                                            "command": "execute if block ~ ~ ~-2 #phantom:web_replaceable",
+                                            "comparison": "==",
+                                            "compare_to": 0
+                                        },
+                                        {
+                                            "type": "origins:command",
+                                            "command": "execute if block ~ ~ ~2 #phantom:web_replaceable",
+                                            "comparison": "==",
+                                            "compare_to": 0
+                                        }
+                                    ]
+                                },
+                                "if_action": {
+                                    "type": "origins:and",
+                                    "actions": [
+                                        {
+                                            "type": "origins:execute_command",
+                                            "command": "fill ~-1 ~-1 ~-1 ~1 ~1 ~1 origins:temporary_cobweb replace #phantom:web_replaceable",
+                                            "permission_level": 4
+                                        },
+                                        {
+                                            "type": "origins:execute_command",
+                                            "command": "execute positioned ~1 ~ ~ run fill ~1 ~1 ~1 ~1 ~-1 ~-1 origins:temporary_cobweb replace #phantom:web_replaceable",
+                                            "permission_level": 4
+                                        },
+                                        {
+                                            "type": "origins:execute_command",
+                                            "command": "execute positioned ~-1 ~ ~ run fill ~-1 ~1 ~1 ~-1 ~-1 ~-1 origins:temporary_cobweb replace #phantom:web_replaceable",
+                                            "permission_level": 4
+                                        },
+                                        {
+                                            "type": "origins:execute_command",
+                                            "command": "execute positioned ~ ~ ~1 run fill ~1 ~1 ~1 ~-1 ~-1 ~1 origins:temporary_cobweb replace #phantom:web_replaceable",
+                                            "permission_level": 4
+                                        },
+                                        {
+                                            "type": "origins:execute_command",
+                                            "command": "execute positioned ~ ~ ~-1 run fill ~1 ~1 ~-1 ~-1 ~-1 ~-1 origins:temporary_cobweb replace #phantom:web_replaceable",
+                                            "permission_level": 4
+                                        },
+                                        {
+                                            "type": "origins:execute_command",
+                                            "command": "execute positioned ~ ~1 ~ run fill ~1 ~1 ~1 ~-1 ~1 ~-1 origins:temporary_cobweb replace #phantom:web_replaceable",
+                                            "permission_level": 4
+                                        },
+                                        {
+                                            "type": "origins:execute_command",
+                                            "command": "execute positioned ~ ~-1 ~ run fill ~1 ~-1 ~1 ~-1 ~-1 ~-1 origins:temporary_cobweb replace #phantom:web_replaceable",
+                                            "permission_level": 4
+                                        },
+                                        {
+                                            "type": "origins:delay",
+                                            "ticks": 10,
+                                            "action": {
+                                                "type": "origins:explode",
+                                                "damage_self": false,
+                                                "create_fire": false,
+                                                "destruction_type": "none",
+                                                "power": 3
+                                            }
+                                        },
+                                        {
+                                            "type": "origins:execute_command",
+                                            "command": "effect give @e[distance=..7,tag=!WebSlinger] minecraft:slowness 5 2 true",
+                                            "permission_level": 4
+                                        },
+                                        {
+                                            "type": "origins:execute_command",
+                                            "command": "effect give @e[distance=..7,tag=!WebSlinger] minecraft:mining_fatigue 3 2 true",
+                                            "permission_level": 4
+                                        },
+                                        {
+                                            "type": "origins:execute_command",
+                                            "command": "effect give @e[distance=..7,tag=!WebSlinger] minecraft:blindness 1 0 true",
+                                            "permission_level": 4
+                                        },
+                                        {
+                                            "type": "origins:execute_command",
+                                            "command": "kill @s[type=falling_block]",
+                                            "permission_level": 4
+                                        },
+                                        {
+                                            "type": "origins:execute_command",
+                                            "command": "playsound minecraft:phantom.grenade_explode player @a[distance=..150]",
+                                            "permission_level": 4
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "origins:execute_command",
+                                "command": "particle minecraft:dust 1 0.1 0.1 1 ~ ~ ~ 0.05 0.05 0.05 1 1 force",
+                                "permission_level": 4
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

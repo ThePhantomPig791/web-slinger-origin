@@ -1,0 +1,15 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:lightning_rod"
+        },
+        "title": "Electrical Engineer-ish",
+        "description": "Use a beacon and a lightning rod to give your Web Shooters a bit of electric sparkle"
+    },
+    "criteria": {
+        "upgrade": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "phantom:choose_web_slinger"
+}

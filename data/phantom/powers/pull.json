@@ -1,0 +1,169 @@
+{
+    "type": "origins:multiple",
+    "name": "§r§lLatch Web§r",
+    "description": "A very stretchy web type, the Latch web can either open doors from a distance or pull mobs with incredible force! Don't worry about flinging your friends to their demise, though, as the leftover web will almost guarantee a slow fall.",
+    "badges": [
+        {
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": "Shoot a Latch web with %s."
+        }
+    ],
+    "start": {
+        "type": "origins:active_self",
+        "cooldown": 5,
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "playsound minecraft:entity.bat.takeoff player @a[distance=..50] ~ ~ ~",
+                    "permission_level": 4
+                
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "playsound minecraft:phantom.latch player @a[distance=..48]",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "playsound minecraft:entity.villager.work_cartographer player @a[distance=1..24] ~ ~ ~ 1 2",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 3,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "playsound minecraft:entity.villager.work_cartographer player @a[distance=1..24]] ~ ~ ~ 1 2",
+                        "permission_level": 4
+                    }
+                },
+                {
+                    "type": "origins:delay",
+                    "ticks": 5,
+                    "action": {
+                        "type": "origins:execute_command",
+                        "command": "playsound minecraft:entity.villager.work_cartographer player @a[distance=1..24] ~ ~ ~ 1 2",
+                        "permission_level": 4
+                    }
+                },
+                {
+                    "type": "origins:raycast",
+                    "distance": 50,
+                    "command_step": 0.1,
+                    "command_along_ray": "particle minecraft:block minecraft:white_wool ~ ~-0.3 ~ 0 0 0 0 1 force",
+                    "fluid_handling": "none",
+                    "shape_type": "collider",
+                    "block_action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:if_else",
+                                "condition": {
+                                    "type": "origins:block_state",
+                                    "property": "open",
+                                    "value": true
+                                },
+                                "if_action": {
+                                    "type": "origins:modify_block_state",
+                                    "property": "open",
+                                    "value": false
+                                },
+                                "else_action": {
+                                    "type": "origins:modify_block_state",
+                                    "property": "open",
+                                    "value": true
+                                }
+                            },
+                            {
+                                "type": "origins:if_else",
+                                "condition": {
+                                    "type": "origins:block_state",
+                                    "property": "open"
+                                },
+                                "if_action": {
+                                    "type": "origins:execute_command",
+                                    "command": "playsound minecraft:block.wooden_door.close player @a[distance=..50] ~ ~ ~"
+                                }
+                            }
+                        ]
+                    },
+                    "bientity_condition": {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "origins:and",
+                            "conditions": [
+                                {
+                                    "type": "origins:sneaking",
+                                    "inverted": true
+                                }
+                            ]
+                        }
+                    },
+                    "bientity_action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:target_action",
+                                "action": {
+                                    "type": "origins:delay",
+                                    "ticks": 40,
+                                    "action": {
+                                        "type": "origins:execute_command",
+                                        "command": "effect give @s minecraft:slow_falling 10 0 true",
+                                        "permission_level": 4
+                                    }
+                                }
+                            },
+                            {
+                                "type": "origins:add_velocity",
+                                "z": -5
+                            },
+                            {
+                                "type": "origins:invert",
+                                "action": {
+                                    "type": "origins:add_velocity",
+                                    "z": -0.1
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:select_webbing_selected",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "phantom:water_in",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:raycast",
+                    "distance": 50,
+                    "fluid_handling": "none",
+                    "shape_type": "collider",
+                    "hit_bientity_condition": {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "origins:exists"
+                        }
+                    },
+                    "block_condition": {
+                        "type": "origins:block_state",
+                        "property": "open"
+                    }
+                }
+            ]
+        }
+    }
+}

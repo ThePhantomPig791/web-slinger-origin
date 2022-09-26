@@ -1,0 +1,82 @@
+{
+    "type": "origins:multiple",
+    "name": "Sticky Limbs",
+    "description": "You can climb up or walls or across ceilings.",
+    "toggle": {
+        "type": "origins:toggle",
+        "key": {
+            "key": "key.spectatorOutlines"
+        }
+    },
+    "climb": {
+        "type": "origins:climbing",
+        "hold_condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:block_collision",
+                            "offset_x": 0.01,
+                            "offset_z": 0.01,
+                            "offset_y": 0.01
+                        },
+                        {
+                            "type": "origins:block_collision",
+                            "offset_x": -0.01,
+                            "offset_z": -0.01,
+                            "offset_y": 0
+                        },
+                        {
+                            "type": "origins:in_block_anywhere",
+                            "block_condition": {
+                                "type": "origins:in_tag",
+                                "tag": "origins:cobwebs"
+                            },
+                            "comparison": "!=",
+                            "compare_to": 0
+                        }
+                    ]
+                },
+                {
+                    "type": "origins:power_active",
+                    "power": "*:*_toggle"
+                }
+            ]
+        },
+        "allow_holding": true,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:collided_horizontally"
+                        },
+                        {
+                            "type": "origins:block_collision",
+                            "offset_x": 0,
+                            "offset_z": 0,
+                            "offset_y": 0.05
+                        },
+                        {
+                            "type": "origins:in_block_anywhere",
+                            "block_condition": {
+                                "type": "origins:in_tag",
+                                "tag": "origins:cobwebs"
+                            },
+                            "comparison": "!=",
+                            "compare_to": 0
+                        }
+                    ]
+                },
+                {
+                    "type": "origins:power_active",
+                    "power": "*:*_toggle"
+                }
+            ]
+        }   
+    }
+}

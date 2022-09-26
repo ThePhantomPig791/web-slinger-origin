@@ -1,0 +1,232 @@
+{
+    "type": "origins:multiple",
+    "name": "Upgrades",
+    "description": "The next three web types each require unique upgrades to be used.",
+    "badges": [
+        {
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": "Web Grenade: Right click with five TNT in each hand, applying them on your web shooters."
+        },
+        {
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": "Poison Web: Right click with a pufferfish in your mainhand and a poison potion in your offhand to apply them on your web shooters."
+        },
+        {
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": "Electric Web: Right click with a beacon in your mainhand and a lightning rod in your offhand to apply them on your web shooters."
+        }
+    ],
+    "grenade": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.use"
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:equipped_item_action",
+                    "equipment_slot": "mainhand",
+                    "action": {
+                        "type": "origins:consume",
+                        "amount": 5
+                    }
+                },
+                {
+                    "type": "origins:equipped_item_action",
+                    "equipment_slot": "offhand",
+                    "action": {
+                        "type": "origins:consume",
+                        "amount": 5
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "advancement grant @s only phantom:upgrade_grenade",
+                    "permission_level": 4
+                }
+            ]
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "mainhand",
+                    "item_condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:tnt"
+                                }
+                            },
+                            {
+                                "type": "origins:amount",
+                                "comparison": ">=",
+                                "compare_to": 5
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "offhand",
+                    "item_condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:tnt"
+                                }
+                            },
+                            {
+                                "type": "origins:amount",
+                                "comparison": ">=",
+                                "compare_to": 5
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "poison": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.use"
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:equipped_item_action",
+                    "equipment_slot": "mainhand",
+                    "action": {
+                        "type": "origins:consume"
+                    }
+                },
+                {
+                    "type": "origins:equipped_item_action",
+                    "equipment_slot": "offhand",
+                    "action": {
+                        "type": "origins:consume"
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "advancement grant @s only phantom:upgrade_poison",
+                    "permission_level": 4
+                }
+            ]
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "mainhand",
+                    "item_condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:pufferfish"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "offhand",
+                    "item_condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:potion"
+                                }
+                            },
+                            {
+                                "type": "origins:nbt",
+                                "nbt": "{Potion:\"minecraft:poison\"}"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "electric": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.use"
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:equipped_item_action",
+                    "equipment_slot": "mainhand",
+                    "action": {
+                        "type": "origins:consume",
+                        "amount": 1
+                    }
+                },
+                {
+                    "type": "origins:equipped_item_action",
+                    "equipment_slot": "offhand",
+                    "action": {
+                        "type": "origins:consume",
+                        "amount": 1
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "advancement grant @s only phantom:upgrade_electric",
+                    "permission_level": 4
+                }
+            ]
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "mainhand",
+                    "item_condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:beacon"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "offhand",
+                    "item_condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:lightning_rod"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

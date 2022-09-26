@@ -1,0 +1,17 @@
+{
+	"description": "All air blocks",
+	"values": [
+		"#phantom:air",
+		"#minecraft:replaceable_plants",
+		"minecraft:snow",
+		"minecraft:kelp",
+		"#minecraft:flowers",
+		"minecraft:grass",
+		"minecraft:tall_grass",
+		"minecraft:seagrass",
+		"minecraft:tall_seagrass",
+		"#minecraft:corals",
+		"#minecraft:wall_corals",
+		"minecraft:water"
+	]
+}

@@ -1,0 +1,15 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:tnt"
+        },
+        "title": "Web Grenaaade!",
+        "description": "Use 10 TNT to upgrade your Web Shooters to explosively dangerous levels"
+    },
+    "criteria": {
+        "upgrade": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "phantom:choose_web_slinger"
+}

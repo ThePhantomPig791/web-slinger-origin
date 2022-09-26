@@ -1,0 +1,26 @@
+{
+    "type": "origins:multiple",
+    "overlay": {
+        "type": "origins:overlay",
+        "texture": "minecraft:textures/block/cobweb.png",
+        "draw_phase": "above_hud",
+        "visible_in_third_person": true,
+        "hide_with_hud": false,
+        "draw_mode": "texture"
+    },
+    "remove": {
+        "type": "origins:action_on_callback",
+        "entity_action_gained": {
+            "type": "origins:delay",
+            "ticks": 100,
+            "action": {
+                "type": "origins:revoke_power",
+                "power": "phantom:assign/webbed_overlay",
+                "source": "phantom:web_slinger"
+            }
+        }
+    },
+    "prevent": {
+        "type": "origins:prevent_block_selection"
+    }
+}

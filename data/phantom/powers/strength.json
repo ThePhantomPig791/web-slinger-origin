@@ -1,0 +1,71 @@
+{
+    "name": "Spider Strength",
+    "description": "You naturally punch harder and take less damage, but you'll deal 90% less damage with any tool or weapon.",
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "sprite": "origins:textures/gui/badge/toggle.png",
+            "text": "Toggle the extra damage/resistance with %s."
+        }
+    ],
+    "toggle": {
+        "type": "origins:toggle",
+        "key": {
+            "key": "key.spectatorOutlines"
+        }
+    },
+    "punch": {
+        "type": "origins:modify_damage_dealt",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "mainhand",
+                    "item_condition": {
+                        "type": "origins:empty"
+                    }
+                },
+                {
+                    "type": "origins:power_active",
+                    "power": "*:*_toggle"
+                }
+            ]   
+        },
+        "modifier": {
+            "name": "Toggle more attack damage",
+            "operation": "addition",
+            "value": 14
+        }
+    },
+    "res": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 5,
+        "modifier": {
+            "attribute": "minecraft:generic.armor",
+            "name": "Toggle more damage resistance",
+            "operation": "addition",
+            "value": 14
+        },
+        "condition": {
+            "type": "origins:power_active",
+            "power": "*:*_toggle"
+        }
+    },
+    "weapons_and_tools": {
+        "type": "origins:modify_damage_dealt",
+        "condition": {
+            "type": "origins:equipped_item",
+            "equipment_slot": "mainhand",
+            "item_condition": {
+                "type": "origins:empty"
+            },
+            "inverted": true
+        },
+        "modifier": {
+            "name": "90% less damage with anything other than fists",
+            "operation": "multiply_total",
+            "value": -0.9
+        }
+    }
+}

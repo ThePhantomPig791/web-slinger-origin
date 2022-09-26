@@ -1,0 +1,102 @@
+{
+    "type": "origins:multiple",
+    "in": {
+        "type": "origins:cooldown",
+        "cooldown": 300,
+        "hud_render": {
+            "should_render": true,
+            "bar_index": 1,
+            "inverted": true
+        }
+    },
+    "name": "Waterlogged",
+    "description": "Getting your web shooters wet will temporarily disable them.",
+    "badges": [
+        {
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": "Being in water will disable them for 15 seconds, while being in rain will only disable them for 3."
+        }
+    ],
+    "enter": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "origins:in_block_anywhere",
+                    "block_condition": {
+                        "type": "origins:block",
+                        "block": "water"
+                    },
+                    "comparison": ">=",
+                    "compare_to": 1
+                },
+                {
+                    "type": "origins:in_rain"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:if_else",
+            "condition": {
+                "type": "origins:in_block_anywhere",
+                "block_condition": {
+                    "type": "origins:block",
+                    "block": "water"
+                },
+                "comparison": ">=",
+                "compare_to": 1
+            },
+            "if_action": {
+                "type": "origins:trigger_cooldown",
+                "power": "*:*_in"
+            },
+            "else_action": {
+                "type": "origins:change_resource",
+                "resource": "*:*_in",
+                "change": 240,
+                "operation": "set"
+            }
+        }
+    },
+    "not_activate": {
+        "type": "origins:active_self",
+        "condition": {
+            "type": "origins:resource",
+            "resource": "phantom:water_in",
+            "comparison": "!=",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "execute anchored feet run particle minecraft:dust 0 0 0 1 ~0.15 ~0.7 ~0.15 0 0 0 1 1 force",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "execute anchored feet run particle minecraft:dust 0 0 0 1 ~-0.15 ~0.7 ~-0.15 0 0 0 1 1 force",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "execute anchored feet run particle minecraft:dust 1 1 1 1 ~0.15 ~0.7 ~0.15 0.01 0.01 0.01 1 5 force",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "execute anchored feet run particle minecraft:dust 1 1 1 1 ~-0.15 ~0.7 ~-0.15 0.01 0.01 0.01 1 5 force",
+                    "permission_level": 4
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "playsound minecraft:phantom.broken_web_shooter player @a[distance=..16] ~ ~ ~ 1 1",
+                    "permission_level": 4
+                }
+            ]
+        }
+    }
+}
